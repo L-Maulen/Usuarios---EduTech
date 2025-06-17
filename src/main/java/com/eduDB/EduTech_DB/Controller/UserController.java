@@ -20,14 +20,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/usuarios")
+@Tag(name = "Usuarios", description = "Operaciones relacionadas con los usuarios")
 
 public class UserController {
     @Autowired
     private UserService userService;
 
     @GetMapping("")
+    @Operation(summary = "Obtener todos los usuarios.", description = "Obtiene una lista con todos los usuarios registrados en la base de datos.")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "Usuarios listados correctamente."),
+        @ApiResponse(responseCode = "204", description = "No se encontraron usuarios en la base de datos."),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor al listar los usuarios.")
+    }
+    )
     public ResponseEntity<List<Usuario>> listarUsuarios() {
         try {
             if (userService.listarUsuarios().isEmpty()) {
@@ -41,6 +54,7 @@ public class UserController {
     }
 
     @PostMapping()
+    @Operation(summary = "Agregar un nuevo usuario.", description = "Agrega un nuevo usuario a la base de datos con todos los datos solicitados.")
     public ResponseEntity<Usuario> postUsuario(@RequestBody Map<String, Object> payload) {
         try {
             Usuario nuevoUsuario = new Usuario();
@@ -62,6 +76,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener un usuario.", description = "Obtener un usuario de la base de datos segun su ID.")
     public ResponseEntity<Usuario> buscarUsrId(@PathVariable Integer id) {
         try {
 
@@ -78,6 +93,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un usuario.", description = "Actualizar un usuario de la base de datos segun su ID.")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Integer id,
             @RequestBody Map<String, Object> payload) {
         try {
@@ -100,6 +116,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un Usuario.", description = "ELiminar un Usuario de la base de datos segun su ID.")
     public ResponseEntity<Void> eliminiarUsrID(@PathVariable Integer id) {
 
         try {

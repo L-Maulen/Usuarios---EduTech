@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,13 +22,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Schema(description = "Entidad que representa el tipo de usuario en la base de datos.")
 public class TipoUsuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Configura la generación automática del valor de la clave primaria por la base de datos.
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único del tipo de usuario.", example = "1")
     private int idTipoUsuario;
     
     @Column(unique = true, nullable = false, name="")
+    @Schema(description = "Descripción del tipo de usuario.", example = "Profesor")
     private String descripcionUsuario;
 
     @OneToMany(mappedBy = "tipoUsuario")

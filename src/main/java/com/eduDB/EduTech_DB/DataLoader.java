@@ -11,8 +11,6 @@ import com.eduDB.EduTech_DB.Model.Usuario;
 import com.eduDB.EduTech_DB.Repository.TipoUsuarioRepository;
 import com.eduDB.EduTech_DB.Repository.UserRepository;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 @Profile("dev")
@@ -38,7 +36,7 @@ public class DataLoader implements CommandLineRunner {
         }
 
         // Poblar tabla Usuario
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             Usuario usuario = new com.eduDB.EduTech_DB.Model.Usuario();
             usuario.setNombreUsuario(faker.name().firstName());
             usuario.setApellidoUsuario(faker.name().lastName());
