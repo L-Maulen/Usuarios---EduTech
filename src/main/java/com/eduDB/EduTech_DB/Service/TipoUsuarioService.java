@@ -22,8 +22,8 @@ public class TipoUsuarioService {
         return tipoUsuarioRepository.findAll();
     }
 
-    public TipoUsuario agregartTipoUsuario(TipoUsuario newtipouUsuario){
-        return tipoUsuarioRepository.save(newtipouUsuario);
+    public TipoUsuario agregartTipoUsuario(TipoUsuario newtipoUsuario){
+        return tipoUsuarioRepository.save(newtipoUsuario);
     }
 
     public TipoUsuario buscarTipoUsuarioId(int id){
@@ -43,11 +43,7 @@ public class TipoUsuarioService {
     }
 
     public void eliminarTiposUsuarioId (int id){
-        if (tipoUsuarioRepository.existsById(id)) {
             tipoUsuarioRepository.deleteById(id);
-        } else {
-            throw new NoSuchElementException("Tipo de usuario no encontrado con ID: " + id);
-        }
     }
 
 

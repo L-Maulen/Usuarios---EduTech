@@ -19,60 +19,37 @@ public class UserService {
     @Autowired
     private UserRepository repositorioUsuario;
 
-    @Autowired TipoUsuarioRepository repositorioTipoUsuario;
+    @Autowired
+    TipoUsuarioRepository repositorioTipoUsuario;
 
-    
-    public List<Usuario> listarUsuarios(){
+    public List<Usuario> listarUsuarios() {
         return repositorioUsuario.findAll();
     }
 
-    public Usuario buscarPorID(Integer usrId){
-        if (repositorioUsuario.existsById(usrId)) {
+    public Usuario buscarPorID(Integer usrId) {
+        try {
             return repositorioUsuario.findById(usrId).get();
-        } else {
+        } catch (Exception e) {
             return null;
         }
+
     }
 
-    public Usuario agregarUsuario(Usuario usr, Integer IdtipoUsuario){
+    public Usuario agregarUsuario(Usuario usr) {
         try {
-            TipoUsuario tipoUsuario = repositorioTipoUsuario.findById(IdtipoUsuario).get();
-            usr.setTipoUsuario(tipoUsuario);
             return repositorioUsuario.save(usr);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public boolean eliminiarUsrID(Integer id){
-        if (repositorioUsuario.existsById(id)) {
-            try {
-                repositorioUsuario.deleteById(id);
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
-            return false;
-            
-        }
+    public void eliminiarUsrID(Integer id) {
+            repositorioUsuario.deleteById(id);
     }
 
-
-    public Usuario actualizarUsr(Usuario usr, int idTipoUsuario){
+    public Usuario actualizarUsr(Usuario usr) {
         if (repositorioUsuario.existsById(usr.getIdUsuario())) {
-
-            TipoUsuario tipoUsuario = repositorioTipoUsuario.findById(idTipoUsuario).get();
-
-            Usuario usrCambiar = repositorioUsuario.findById(usr.getIdUsuario()).get();
-
-            usrCambiar.setNombreUsuario(usr.getNombreUsuario());
-            usrCambiar.setApellidoUsuario(usr.getApellidoUsuario());
-            usrCambiar.setCorreoUsuario(usr.getCorreoUsuario());
-            usrCambiar.setPasswrd(usr.getPasswrd());
-            usrCambiar.setTipoUsuario(tipoUsuario);
-
-            return repositorioUsuario.save(usrCambiar);
+            return repositorioUsuario.save(usr);
         } else {
             return null;
         }
