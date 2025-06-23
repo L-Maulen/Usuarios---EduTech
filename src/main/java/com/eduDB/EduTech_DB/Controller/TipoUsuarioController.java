@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +40,11 @@ public class TipoUsuarioController {
     @GetMapping("")
     @Operation(summary = "Obtener todos los tipos de usuarios.", description = "Obtiene una lista con todos los tipos de usuarios registrados en la base de datos.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipos de usuarios listados correctamente.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TipoUsuario.class)))),
+            @ApiResponse(responseCode = "200", description = "Tipos de usuarios listados correctamente.", 
+                content = @Content(mediaType = "application/json", 
+                    array = @ArraySchema(schema = @Schema(implementation = TipoUsuario.class)),
+                    examples = @ExampleObject(name = "Ejemplo lista de tipos de usuarios",
+                        value = "[{\"idTipoUsuario\": 1, \"descripcionUsuario\": \"Administrador\"}, {\"idTipoUsuario\": 2, \"descripcionUsuario\": \"Profesor\"}]"))),
             @ApiResponse(responseCode = "204", description = "No se encontraron tipos de usuarios en la base de datos.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al listar los tipos de usuarios.", content = @Content)
     })
@@ -59,7 +64,11 @@ public class TipoUsuarioController {
     @GetMapping("/{id}")
     @Operation(summary = "Obtener un tipo de usuario según su ID.", description = "Obtiene un tipo de usuario específico según su ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuario encontrado correctamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoUsuario.class))),
+            @ApiResponse(responseCode = "200", description = "Tipo de usuario encontrado correctamente.", 
+                content = @Content(mediaType = "application/json", 
+                    schema = @Schema(implementation = TipoUsuario.class),
+                    examples = @ExampleObject(name = "Ejemplo tipo de usuario",
+                        value = "{\"idTipoUsuario\": 2, \"descripcionUsuario\": \"Profesor\"}"))),
             @ApiResponse(responseCode = "404", description = "Tipo de usuario no existe o el ID es incorrecto.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar el tipo de usuario.", content = @Content)
     })
@@ -81,7 +90,11 @@ public class TipoUsuarioController {
     @PostMapping()
     @Operation(summary = "Agregar un nuevo tipo de usuario.", description = "Agrega un nuevo tipo de usuario a la base de datos con la descripción del tipo de usuario.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Tipo de usuario creado correctamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoUsuario.class))),
+            @ApiResponse(responseCode = "201", description = "Tipo de usuario creado correctamente.", 
+                content = @Content(mediaType = "application/json", 
+                    schema = @Schema(implementation = TipoUsuario.class),
+                    examples = @ExampleObject(name = "Ejemplo tipo de usuario creado",
+                        value = "{\"idTipoUsuario\": 1, \"descripcionUsuario\": \"Administrador\"}"))),
             @ApiResponse(responseCode = "400", description = "Error al crear el tipo de usuario, datos incorrectos.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al crear el tipo de usuario.", content = @Content)
     })
@@ -102,7 +115,11 @@ public class TipoUsuarioController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un tipo de usuario según su ID.", description = "Actualiza un tipo de usuario específico según su ID en la base de datos.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuario actualizado correctamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoUsuario.class))),
+            @ApiResponse(responseCode = "200", description = "Tipo de usuario actualizado correctamente.", 
+                content = @Content(mediaType = "application/json", 
+                    schema = @Schema(implementation = TipoUsuario.class),
+                    examples = @ExampleObject(name = "Ejemplo de actualizar un tipo de usuario",
+                        value = "{\"idTipoUsuario\": 1, \"descripcionUsuario\": \"Administrador\"}"))),
             @ApiResponse(responseCode = "404", description = "Tipo de usuario no encontrado o el ID es incorrecto.",content = @Content),
             @ApiResponse(responseCode = "400", description = "Error al actualizar el tipo de usuario, datos incorrectos.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al actualizar el tipo de usuario.", content = @Content)

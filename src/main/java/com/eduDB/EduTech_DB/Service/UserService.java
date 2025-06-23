@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eduDB.EduTech_DB.Model.TipoUsuario;
 import com.eduDB.EduTech_DB.Model.Usuario;
 import com.eduDB.EduTech_DB.Repository.TipoUsuarioRepository;
 import com.eduDB.EduTech_DB.Repository.UserRepository;
