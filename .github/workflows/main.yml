@@ -45,9 +45,9 @@ jobs:
                 port: ${{ secrets.PORT }}
                 script: |
                   cat <<EOF > /home/ubuntu/application/.env
-                  DB_ENDPOINT=${{ secrets.DB_SERVER_IP }}
-                  DB_USERNAME=${{ secrets.DB_USERNAME }}
-                  DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                  ip_maquina_db=${{ secrets.DB_SERVER_IP }}
+                  usuario_maquina_db=${{ secrets.DB_USERNAME }}
+                  contrasena_maquina_db=${{ secrets.DB_PASSWORD }}
                   EOF
 
             - name: Levantar docker-compose 
