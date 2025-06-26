@@ -13,7 +13,7 @@ import com.eduDB.EduTech_DB.Repository.UserRepository;
 
 import java.util.Random;
 
-@Profile("test")
+@Profile("dev")
 @Component
 public class DataLoader implements CommandLineRunner {
     @Autowired

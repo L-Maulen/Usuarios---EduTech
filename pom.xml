@@ -63,6 +63,13 @@
 		</dependency>
 		<!-- Dependencia Swagger -->
 
+		<!-- Dependencia de HATEOAS -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+		<!-- Dependencia de HATEOAS -->
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
