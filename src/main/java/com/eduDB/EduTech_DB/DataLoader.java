@@ -36,7 +36,7 @@ public class DataLoader implements CommandLineRunner {
         }
 
         // Poblar tabla Usuario
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 25; i++) {
             Usuario usuario = new com.eduDB.EduTech_DB.Model.Usuario();
             usuario.setNombreUsuario(faker.name().firstName());
             usuario.setApellidoUsuario(faker.name().lastName());
