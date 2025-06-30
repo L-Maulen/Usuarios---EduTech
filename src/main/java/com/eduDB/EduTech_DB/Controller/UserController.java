@@ -67,7 +67,7 @@ public class UserController {
                 content = @Content(mediaType = "application/json", 
                 schema = @Schema(implementation = Usuario.class),
                     examples = @ExampleObject(name = "Ejemplo crear usuario",
-                    value = "{\"idUsuario\": 1, \"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Juan\", \"apellidoUsuario\": \"Perez\", \"email\": \"juan.perez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 1, \"descripcionUsuario\": \"Administrador\"}}"))),
+                    value = "{\"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Juan\", \"apellidoUsuario\": \"Perez\", \"email\": \"juan.perez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 1}}"))),
             @ApiResponse(responseCode = "400", description = "Error al crear el usuario, datos incorrectos.", content = @Content),
             @ApiResponse(responseCode = "404", description = "Tipo de usuario no encontrado.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al crear el usuario.", content = @Content)
