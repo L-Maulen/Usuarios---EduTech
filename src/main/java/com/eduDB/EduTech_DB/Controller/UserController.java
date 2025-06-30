@@ -75,8 +75,9 @@ public class UserController {
     })
     public ResponseEntity<Usuario> postUsuario(@RequestBody Usuario nuevoUsuario) {
         try {
-            Usuario creado = userService.agregarUsuario(nuevoUsuario);
-            return new ResponseEntity<>(creado, HttpStatus.CREATED);
+            userService.agregarUsuario(nuevoUsuario);
+            Usuario creadoCompleto = userService.buscarPorID(nuevoUsuario.getIdUsuario());
+            return new ResponseEntity<>(creadoCompleto, HttpStatus.CREATED);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
