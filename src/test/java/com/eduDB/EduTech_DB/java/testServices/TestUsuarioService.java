@@ -14,16 +14,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.eduDB.EduTech_DB.Model.Usuario;
+import com.eduDB.EduTech_DB.Repository.TipoUsuarioRepository;
 import com.eduDB.EduTech_DB.Repository.UserRepository;
 import com.eduDB.EduTech_DB.Service.UserService;
 
-@SpringBootTest
+import org.springframework.test.context.ActiveProfiles;
+
+@SpringBootTest(properties = {
+    "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+})
+@ActiveProfiles("test")
 public class TestUsuarioService {
     @Autowired
     private UserService usuarioService;
 
     @MockBean
     private UserRepository usuarioRepository;
+
+    @MockBean
+    private TipoUsuarioRepository tipoUsuarioRepository;
 
     @Test
     public void testListarUsuarios() {

@@ -1,11 +1,13 @@
 package com.eduDB.EduTech_DB.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eduDB.EduTech_DB.Model.Usuario;
+import com.eduDB.EduTech_DB.Model.DTO.Response.CursoResponse;
 import com.eduDB.EduTech_DB.Repository.TipoUsuarioRepository;
 import com.eduDB.EduTech_DB.Repository.UserRepository;
 
@@ -20,6 +22,17 @@ public class UserService {
 
     @Autowired
     TipoUsuarioRepository repositorioTipoUsuario;
+
+    @Autowired
+    CursoEduTechClient cursoEduTechClient;
+
+    public List<CursoResponse> obtenerCursosPorUsuarioId(Long usuarioId) {
+        return Arrays.asList(cursoEduTechClient.obtenerCursosPorUsuarioId(usuarioId));
+    }
+
+    public List<CursoResponse> obtenerTodosLosCursos() {
+        return Arrays.asList(cursoEduTechClient.obtenerTodosLosCursos());
+    }
 
     public List<Usuario> listarUsuarios() {
         return repositorioUsuario.findAll();

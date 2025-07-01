@@ -3,6 +3,7 @@ package com.eduDB.EduTech_DB.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eduDB.EduTech_DB.Model.Usuario;
+import com.eduDB.EduTech_DB.Model.DTO.Response.CursoResponse;
 import com.eduDB.EduTech_DB.Service.UserService;
 
 import java.util.List;
@@ -28,6 +29,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -37,14 +39,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/cursos-todos")
+    public ResponseEntity<List<CursoResponse>> getTodosLosCursos() {
+        List<CursoResponse> cursos = userService.obtenerTodosLosCursos();
+        if (cursos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(cursos, HttpStatus.OK);
+    }
+
     @GetMapping("")
     @Operation(summary = "Obtener todos los usuarios.", description = "Obtiene una lista con todos los usuarios registrados en la base de datos.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuarios listados correctamente.", 
-                content = @Content(mediaType = "application/json", 
-                array = @ArraySchema(schema = @Schema(implementation = Usuario.class)),
-                    examples = @ExampleObject(name = "Ejemplo lista de usuarios",
-                    value = "[{\"idUsuario\": 1, \"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Juan\", \"apellidoUsuario\": \"Perez\", \"correoUsuario\": \"juan.perez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 1, \"descripcionUsuario\": \"Administrador\"}}, {\"idUsuario\": 2, \"passwrd\": \"KAqet53_/#\", \"nombreUsuario\": \"Maria\", \"apellidoUsuario\": \"Lopez\", \"correoUsuario\": \"maria.lopez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 3, \"descripcionUsuario\": \"Estudiante\"}}]"))),
+            @ApiResponse(responseCode = "200", description = "Usuarios listados correctamente.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Usuario.class)), examples = @ExampleObject(name = "Ejemplo lista de usuarios", value = "[{\"idUsuario\": 1, \"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Juan\", \"apellidoUsuario\": \"Perez\", \"correoUsuario\": \"juan.perez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 1, \"descripcionUsuario\": \"Administrador\"}}, {\"idUsuario\": 2, \"passwrd\": \"KAqet53_/#\", \"nombreUsuario\": \"Maria\", \"apellidoUsuario\": \"Lopez\", \"correoUsuario\": \"maria.lopez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 3, \"descripcionUsuario\": \"Estudiante\"}}]"))),
             @ApiResponse(responseCode = "204", description = "No se encontraron usuarios en la base de datos.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al listar los usuarios.", content = @Content)
     })
@@ -63,11 +70,7 @@ public class UserController {
     @PostMapping()
     @Operation(summary = "Agregar un nuevo usuario.", description = "Agrega un nuevo usuario a la base de datos con todos los datos solicitados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuario creado correctamente.", 
-                content = @Content(mediaType = "application/json", 
-                schema = @Schema(implementation = Usuario.class),
-                    examples = @ExampleObject(name = "Ejemplo crear usuario",
-                    value = "{\"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Juan\", \"apellidoUsuario\": \"Perez\", \"email\": \"juan.perez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 1}}"))),
+            @ApiResponse(responseCode = "201", description = "Usuario creado correctamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class), examples = @ExampleObject(name = "Ejemplo crear usuario", value = "{\"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Juan\", \"apellidoUsuario\": \"Perez\", \"email\": \"juan.perez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 1}}"))),
             @ApiResponse(responseCode = "400", description = "Error al crear el usuario, datos incorrectos.", content = @Content),
             @ApiResponse(responseCode = "404", description = "Tipo de usuario no encontrado.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al crear el usuario.", content = @Content)
@@ -88,11 +91,7 @@ public class UserController {
     @GetMapping("/{id}")
     @Operation(summary = "Obtener un usuario.", description = "Obtener un usuario de la base de datos segun su ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuario encontrado correctamente.", 
-                content = @Content(mediaType = "application/json", 
-                schema = @Schema(implementation = Usuario.class),
-                    examples = @ExampleObject(name = "Ejemplo de Usuario",
-                    value = "{\"idUsuario\": 2, \"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Eufrecio\", \"apellidoUsuario\": \"Gomez\", \"email\": \"Egomez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 3, \"descripcionUsuario\": \"Alumno\"}}"))),
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado correctamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class), examples = @ExampleObject(name = "Ejemplo de Usuario", value = "{\"idUsuario\": 2, \"passwrd\": \"Contraseña123\", \"nombreUsuario\": \"Eufrecio\", \"apellidoUsuario\": \"Gomez\", \"email\": \"Egomez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 3, \"descripcionUsuario\": \"Alumno\"}}"))),
             @ApiResponse(responseCode = "404", description = "El Usuario no existe en la base de datos o el ID es incorrecto.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar el usuario.", content = @Content)
     })
@@ -115,11 +114,7 @@ public class UserController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un usuario.", description = "Actualizar un usuario de la base de datos segun su ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuario actualizado correctamente.", 
-                content = @Content(mediaType = "application/json", 
-                schema = @Schema(implementation = Usuario.class),
-                    examples = @ExampleObject(name = "Ejemplo actualizar usuario",
-                    value = "{\"idUsuario\": 2, \"passwrd\": \"EGomez999./\", \"nombreUsuario\": \"Eufrecio\", \"apellidoUsuario\": \"Gomez\", \"email\": \"Egomez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 3, \"descripcionUsuario\": \"Alumno\"}}"))),
+            @ApiResponse(responseCode = "200", description = "Usuario actualizado correctamente.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class), examples = @ExampleObject(name = "Ejemplo actualizar usuario", value = "{\"idUsuario\": 2, \"passwrd\": \"EGomez999./\", \"nombreUsuario\": \"Eufrecio\", \"apellidoUsuario\": \"Gomez\", \"email\": \"Egomez@gmail.com\", \"tipoUsuario\": {\"idTipoUsuario\": 3, \"descripcionUsuario\": \"Alumno\"}}"))),
             @ApiResponse(responseCode = "400", description = "Error, datos incorrectos para actualizar el usuario.", content = @Content),
             @ApiResponse(responseCode = "404", description = "El usuario no existe en la base de datos o el ID es incorrecto.", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor al actualizar el usuario.", content = @Content)
