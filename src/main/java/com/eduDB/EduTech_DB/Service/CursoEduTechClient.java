@@ -26,9 +26,4 @@ public class CursoEduTechClient {
         return restTemplate.getForObject(url, CursoResponse.class);
     }
 
-    public CursoResponse[] obtenerCursosPorUsuarioId(Long usuarioId) {
-        String url = urlApiCurso + "usuario/" + usuarioId;
-        return restTemplate.getForObject(url, CursoResponse[].class);
-    }
-
 }
