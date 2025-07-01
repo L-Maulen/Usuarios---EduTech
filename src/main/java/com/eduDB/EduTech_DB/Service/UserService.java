@@ -26,9 +26,6 @@ public class UserService {
     @Autowired
     CursoEduTechClient cursoEduTechClient;
 
-    public List<CursoResponse> obtenerCursosPorUsuarioId(Long usuarioId) {
-        return Arrays.asList(cursoEduTechClient.obtenerCursosPorUsuarioId(usuarioId));
-    }
 
     public List<CursoResponse> obtenerTodosLosCursos() {
         return Arrays.asList(cursoEduTechClient.obtenerTodosLosCursos());
